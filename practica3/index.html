@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма</title>
+</head>
+<body>
+    <form enctype="multipart/form-data" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <legend style="text-align:center"><h1><b>Форма заказа товаров</b></h1></legend>
+
+        <table border="0px">
+            <!-- СТРОКА 1 Фамилия и Доставка-->
+            <tr>
+                <td style="text-align:right">
+                    <label for="Surname">Фамилия</label>
+                    <input type="text" name="Surname" pattern="[А-Яа-яЁё]+" required>
+                </td>
+                <td rowspan="4">
+                    <div style="text-align:center;"><label for="delivery"><b>Доставка</b></label></div> <br>
+                    <input type="radio" name="radio" value="Mail" >Почта <br>
+                    <input type="radio" name="radio" value="Courier">Курьер <br>
+                    <input type="radio" name="radio" value="Pickup" checked>Самовывоз </th>
+                </td>
+            </tr>
+
+            <!-- СТРОКА 2 пароль-->
+            <tr>
+                <td style="text-align:right">
+                <label for="pasword">Пароль</label>
+                <input type="password" name="Pasword" maxlength="8" required> 
+                </td>
+            </tr>
+            
+            <!-- СТРОКА 3 адрес-->
+            <tr>
+                <td style="text-align:right">
+                    <label for="adress">Адрес получателя</label>
+                    <input type="text" name="adress" required> 
+                </td>
+            </tr>
+            
+            <!-- СТРОКА 4 колво-->
+            <tr>
+                <td style="text-align:right">
+                <label for="quantity">Количество</label>
+                <input type="text" pattern="^(100|[1-9]?[0-9])$">
+                </td>
+            </tr>
+            
+            <!-- СТРОКА 5 товар и ордер-->
+            <tr>
+
+                <td rowspan="3" style="text-align:right">
+                    <label for="product">Наименование товара</label>
+                    <select name="product">
+                    <option value="Candy">Конфеты</option>
+                    <option value="Cookie">Печенье</option>
+                    <option value="Ice_cream">Мороженое</option>
+                    <option value="Chocolate">Шоколад</option>
+                    </select> 
+                </td>
+
+                <td colspan="2">
+                    <label for="order"><i>Требуется приходный ордер</i></label>
+                    <input type="checkbox" name="order" checked>
+                </td>
+            </tr>
+            
+            <!-- СТРОКА 6 справа доп инфа-->
+            <tr>
+                <td colspan="2">
+                    <label for="info"><b>Дополнительная информация:</b></label><br>
+                    <textarea name="info" rows="5" cols="30"></textarea>
+                </td>
+            </tr>
+            
+           <!-- СТРОКА 7 справа отправить-->
+            <tr>
+                <td colspan="2" style="text-align:center;">
+                    <input type="submit" value="Отправить">
+                    <input type="reset" value="Обновить">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
