@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Турист</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0b1d26;
+            --accent-color: #fbd784;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .text-accent { color: var(--accent-color); }
+
+        /* --- ГЛАВНЫЙ ЭКРАН --- */
+        .hero-section {
+            position: relative;
+            height: 150vh; /* Увеличиваем высоту для многослойности */
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Слои гор */
+        .layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .layer-bg {z-index: 1}
+
+        .layer-mountains { 
+          z-index: 2;
+          top: 35%; 
+        }
+
+        .layer-human {
+            top: 55%;
+            height: 70%;
+            z-index: 3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            margin-top: 25vh;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        /* Затемнение снизу для плавного перехода в контент */
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to bottom, transparent, var(--bg-color));
+            z-index: 5;
+        }
+
+        /* КОНТЕНТ */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            margin-top: -35vh; 
+            padding-bottom: 100px;
+        }
+
+        /* Огромные цифры */
+        .big-number {
+            font-size: 240px;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            top: 10%;
+            z-index: -1;
+        }
+
+        /* Боковые панели */
+        .side-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .side-left { left: 40px; }
+        .side-right { right: 40px; }
+
+        .vertical-text {
+            writing-mode: vertical-rl;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .line {
+            width: 2px;
+            height: 60px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Боковая навигация (Слева) -->
+    <div class="side-nav side-left hidden lg:flex">
+        <span class="vertical-text">Follow us</span>
+        <a href="#"><img src="picture/instagram.png" alt="IG"></a>
+        <a href="#"><img src="picture/twitter.png" alt="TW"></a>
+    </div>
+
+    <!-- Боковая навигация (Справа) -->
+    <div class="side-nav side-right hidden lg:flex items-end">
+        <div class="flex flex-col gap-4 text-right font-bold text-sm">
+            <div class="flex items-center justify-end gap-3"><span>Start</span><div class="w-1 h-10 bg-white"></div></div>
+            <div class="opacity-50">01</div>
+            <div class="opacity-50">02</div>
+            <div class="opacity-50">03</div>
+        </div>
+    </div>
+
+    <!-- Навигация -->
+    <nav class="absolute top-0 left-0 w-full z-[100] pt-10 px-10">
+        <div class="container-fluid flex items-center justify-between">
+            <a href="#" class="text-2xl font-bold tracking-widest no-underline text-white">MNTN</a>
+            <ul class="hidden md:flex gap-10 list-none m-0 p-0 font-bold">
+                <li><a href="#" class="hover:text-[#fbd784] transition">Equipment</a></li>
+                <li><a href="#" class="hover:text-[#fbd784] transition">About us</a></li>
+                <li><a href="#" class="hover:text-[#fbd784] transition">Blog</a></li>
+            </ul>
+            <div class="flex items-center gap-2 font-bold cursor-pointer hover:text-[#fbd784] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+                Account
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главный экран с 3 слоями -->
+    <header class="hero-section">
+        <!-- Слой 1: Небо/Туман (Задник) -->
+        <img src="picture/clouds.png" class="layer layer-bg" alt="Sky">
+        
+        <!-- Слой 2: Горы (Средний план) -->
+        <img src="picture/mountain.png" class="layer layer-mountains" alt="Mountains">
+
+        <!-- Слой 2: Человек (Передний план) -->
+        <img src="picture/human.png" class="layer layer-human" alt="Human">
+
+        <!-- Текст -->
+        <div class="hero-content px-4">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="w-16 h-[2px] bg-[#fbd784]"></div>
+                <span class="text-accent tracking-[4px] uppercase font-bold text-sm">A Hiking Guide</span>
+            </div>
+            <h1 class="text-5xl md:text-8xl leading-tight mb-8">Be Prepared For The Mountains And Beyond!</h1>
+            <div class="flex items-center gap-2 font-bold text-sm hover:text-[#fbd784] transition">
+                <a href="#content">scroll down</a> <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1v13.5m0 0L3 10m5 4.5L13 10" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Контентные секции -->
+    <main id="content" class="container py-32">
+        
+        <!-- Секция 01 -->
+        <div class="row items-center mb-40 relative">
+
+            <div class="col-lg-6 pr-lg-20">
+                <span class="big-number">01</span>
+
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-[2px] bg-accent"></div>
+                    <span class="text-accent tracking-[4px] uppercase text-xs font-bold">Get Started</span>
+                </div>
+
+                <h2 class="text-5xl mb-4">What level of hiker are you?</h2>
+                <p class="text-gray-400 leading-relaxed mb-4">
+                    Determining what level of hiker you are can be an important tool when planning future hikes. This hiking level guide will help you plan hikes according to different hike ratings set by various websites like All Trails and Modern Hiker.
+                </p>
+                <a href="#" class="text-accent no-underline font-bold flex items-center gap-2">
+                    read more <span>&rarr;</span>
+                </a>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="w-[566px] h-[720px] overflow-hidden mx-auto">
+                  <img src="picture/01.png"
+                    class="w-full h-full object-cover object-center">
+                </div>
+            </div>
+        </div>
+
+        <!-- Секция 02 -->
+        <div class="row items-center mb-40 relative">
+            <div class="col-lg-6 order-lg-2 pl-lg-20">
+                <span class="big-number big-number-right">02</span>
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-[2px] bg-accent"></div>
+                    <span class="text-accent tracking-[4px] uppercase text-xs font-bold">Hiking Essentials</span>
+                </div>
+                <h2 class="text-5xl mb-4">Picking the right Hiking Gear!</h2>
+                <p class="text-gray-400 leading-relaxed mb-4">
+                    The nice thing about beginning hiking is that you don't really need any special gear, you can probably get away with things you already have. Let's start with clothing. A typical mistake hiking beginners make is wearing jeans and regular clothes.
+                </p>
+                <a href="#" class="text-accent no-underline font-bold flex items-center gap-2">
+                    read more <span>&rarr;</span>
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <div class="w-[566px] h-[720px] overflow-hidden mx-auto">
+                  <img src="picture/02.jpg"
+                    class="w-full h-full object-cover object-center">
+                </div>
+            </div>
+        </div>
+
+        <!-- Секция 03 -->
+        <div class="row items-center mb-40 relative">
+            <div class="col-lg-6 pr-lg-20">
+                <span class="big-number">03</span>
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-[2px] bg-accent"></div>
+                    <span class="text-accent tracking-[4px] uppercase text-xs font-bold">Where you go is the key</span>
+                </div>
+                <h2 class="text-5xl mb-4">Understand Your Map & Timing</h2>
+                <p class="text-gray-400 leading-relaxed mb-4">
+                    To start, print out the hiking guide and map. If it's raining, throw them in a Zip-Lock bag. Read over the guide, study the map, and have a good idea of what to expect. I like to know what my next landmark is as I hike.
+                </p>
+                <a href="#" class="text-accent no-underline font-bold flex items-center gap-2">
+                    read more <span>&rarr;</span>
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <div class="w-[566px] h-[720px] overflow-hidden mx-auto">
+                  <img src="picture/03.png"
+                    class="w-full h-full object-cover object-center">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="container mx-auto px-6 lg:px-32 py-20">
+        <div class="row">
+            <div class="col-lg-6 mb-12">
+                <h3 class="text-3xl font-bold mb-6 tracking-widest">MNTN</h3>
+                <p class="max-w-xs text-gray-400 mb-12 font-semibold">Get out there & discover your next slope, mountain & destination!</p>
+                <p class="text-gray-600 text-sm">Copyright 2023 MNTN, Inc. Terms & Privacy</p>
+            </div>
+            <div class="col-6 col-lg-3">
+                <h4 class="text-accent font-bold mb-6">More on The Blog</h4>
+                <div class="flex flex-col gap-4 text-sm font-medium">
+                    <a href="#" class="hover:text-accent transition">About MNTN</a>
+                    <a href="#" class="hover:text-accent transition">Contributors & Writers</a>
+                    <a href="#" class="hover:text-accent transition">Write For Us</a>
+                    <a href="#" class="hover:text-accent transition">Contact Us</a>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <h4 class="text-accent font-bold mb-6">More on MNTN</h4>
+                <div class="flex flex-col gap-4 text-sm font-medium">
+                    <a href="#" class="hover:text-accent transition">The Team</a>
+                    <a href="#" class="hover:text-accent transition">Jobs</a>
+                    <a href="#" class="hover:text-accent transition">Press</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
